@@ -17,4 +17,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # The "." tells Cloudflare to just upload the whole folder exactly as it is
-          command: pages deploy . --project-name=pedianotes-homepage
+          command: pages deploy . --project-name=pedianoteshomepage
