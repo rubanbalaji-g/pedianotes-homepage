@@ -1,31 +1,20 @@
-name: Deploy to Cloudflare Pages
+name: Deploy Static Homepage to Cloudflare
 
 on:
   push:
-    branches: [ "main" ] # Change to 'master' if needed
+    branches: [ "main" ] # Change to 'master' if your default branch is master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22 # Matching your package.json
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build site
-        # This runs your existing build script which includes theme and sass
-        run: npm run build 
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=pedianoteshomepage
+          # The "." tells Cloudflare to just upload the whole folder exactly as it is
+          command: pages deploy . --project-name=pedianotes-homepage
